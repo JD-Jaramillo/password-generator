@@ -22,40 +22,41 @@ function generatePassword() {
         alert('please start over with 8-128');
     } else if (passwordLength >= 8 && passwordLength < 129) {
         console.log("The number entered is valid");
+
+
         let uppercaseLetters = confirm("Great, now do you want to use uppercase letters? ");
         if (uppercaseLetters) {
-            console.log('upercase letters true');
             characterOptionsArray = characterOptionsArray.concat(uppercaseLetterArray);
-            console.log('characterOptionsArray array', characterOptionsArray);
-        }
-        // return uppercaseLetters;
-        // console.log("UpperCse leter", uppercaseLetters);
-        // let lowercaseLetters = confirm("Do you want a lowercaseLetter?");
-        // console.log("lowercase letters", lowercaseLetters);
-        // let specialCharacters = confirm("Do you want special characters?");
-        // console.log("special characters", specialCharacters);
 
-    }
+        } // end of  if (uppercaseLetters)
+
+
+        let lowercaseLetters = confirm("Great, now do you want to use lowercase letters? ");
+        if (lowercaseLetters) {
+            characterOptionsArray = characterOptionsArray.concat(lowercaseLetterArray);
+        }// end of  if (lowercaseLetters)
+
+        let specialCharacters = confirm("Great, now do you want to use special characters letters? ");
+        if (specialCharacters) {
+            characterOptionsArray = characterOptionsArray.concat(specialCharacterArray);
+        } // end of  if (specialCharacters)
+
+    } // end of lse if (passwordLength >= 8 && passwordLength < 129)
 
     let password = "";
 
-    if (uppercaseLetters) {
-        console.log("this is working now ");
-    }
-    console.log('meh2');
-
     for (i = 1; i <= passwordLength; i++) {
         // generate random number to use as the index for what key to tgrab in characterOptionsArray
-        console.log('characterOptionsArray.length', characterOptionsArray.length);
+        // console.log('characterOptionsArray.length', characterOptionsArray.length);
         let randomNumberToUseAsIndex = (Math.floor(Math.random() * characterOptionsArray.length) + 1);
-        console.log('THIS IS THE RANDOM NUMBER INDEX', randomNumberToUseAsIndex)
+        // console.log('THIS IS THE RANDOM NUMBER INDEX', randomNumberToUseAsIndex)
         password += characterOptionsArray[randomNumberToUseAsIndex];
         console.log(password, "this is password wiht random number");
     }
 
+    return password;
 
-
-}
+} // end of generatePassword()
 // this function needs to return the password (generatePassword = "string")
 
 
@@ -64,7 +65,7 @@ function writePassword() {
     console.log('write password');
     var password = generatePassword();
     var passwordText = document.querySelector("#password");
-    console.log("the function is working, where off to a good start")
+    console.log("the function is working, password is being generated")
     passwordText.value = password;
 
 }
@@ -77,4 +78,4 @@ generateBtn.addEventListener("click", generatePassword);
 
 
 
-// writePassword();
+writePassword();
