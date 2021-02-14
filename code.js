@@ -5,6 +5,8 @@ let generateBtn = document.querySelector("#generate");
 // this function needs to return the password (generatePassword = "string")
 function generatePassword() {
     console.log("generate password function ran");
+
+    // This prompt is capturing the number of characters to be stored in the variable password.length 
     var passwordLength = prompt("How long do you want your password to be? Please choose a number between 8 and 128");
     console.log(passwordLength, "passwordlength is working");
     // console.log('passwordLength.length', passwordLength.length);
@@ -58,7 +60,7 @@ function generatePassword() {
         let randomNumberToUseAsIndex = (Math.floor(Math.random() * characterOptionsArray.length) + 1);
         let candidateKey = characterOptionsArray[randomNumberToUseAsIndex];
 
-        // if the array returned undefined, try going through it again
+        // if the array returned undefined, try going through it again (I was having trouble with characters coming back as undefined so I came up with this solution to filter out the undefined out and put them back through the loop)
         if (typeof candidateKey === 'undefined') {
             console.log('this was undef');
             let randomNumberToUseAsIndex = (Math.floor(Math.random() * characterOptionsArray.length) + 1);
@@ -88,8 +90,7 @@ function writePassword() {
 
 }
 
-// This event listener is added to generate button so that it will activate upon the users click
-generateBtn.addEventListener("click", generatePassword);
+// This event listener is added to generate button so that it will activate upon the users click. This inititates the above function to write password, which then in turn triggers the generate password function at the top 
+generateBtn.addEventListener("click", writePassword);
 
-// This inititates the above function to write password, which then in turn triggers the generate password function at the top 
-writePassword();  
+
