@@ -10,7 +10,7 @@ function generatePassword() {
     // console.log('passwordLength.length', passwordLength.length);
 
     // These are the arrays for the user character selections, these will be used to generate the password 
-    var specialCharacterArray = ["!", "$", "&", "#", "*"];
+    var specialCharacterArray = ["*", "$", "&", "%", "#", "@", "?", "/", "_"];
     var uppercaseLetterArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
     var lowercaseLetterArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
     let characterOptionsArray = [];
@@ -41,6 +41,8 @@ function generatePassword() {
         //  This is asking the user to confirm if they want to use special characters, if they do then the special characters array is added/concated to the character options array (if they don't the array won't be added)
         let specialCharacters = confirm("Great, now do you want to use special characters letters? ");
         if (specialCharacters) {
+            // characterOptionsArray = characterOptionsArray.concat(meh);
+
             characterOptionsArray = characterOptionsArray.concat(specialCharacterArray);
         } // end of  if (specialCharacters)
 
@@ -50,11 +52,23 @@ function generatePassword() {
     let password = "";
 
     // This is what is looping us based on the length of the password that the user wants through the character options array in order to formulate our password 
+
     for (i = 1; i <= passwordLength; i++) {
         // generate random number to use as the index for what key to grab in characterOptionsArray
         let randomNumberToUseAsIndex = (Math.floor(Math.random() * characterOptionsArray.length) + 1);
-        password += characterOptionsArray[randomNumberToUseAsIndex];
-        console.log(password, "this is password with random number");
+        let candidateKey = characterOptionsArray[randomNumberToUseAsIndex];
+
+        // if the array returned undefined, try going through it again
+        if (typeof candidateKey === 'undefined') {
+            console.log('this was undef');
+            let randomNumberToUseAsIndex = (Math.floor(Math.random() * characterOptionsArray.length) + 1);
+            password += characterOptionsArray[randomNumberToUseAsIndex];
+        }
+
+        // if it returned a good key, add it to the password
+        else {
+            password += candidateKey;
+        }
     }
 
     // This returns the password variable to the top of the function 
@@ -66,7 +80,7 @@ function generatePassword() {
 
 // This function writes the password in the text area 
 function writePassword() {
-    console.log('write password');
+    console.log('write password function generated');
     var password = generatePassword();
     var passwordText = document.querySelector("#password");
     console.log("the function is working, password is being generated")
@@ -78,4 +92,4 @@ function writePassword() {
 generateBtn.addEventListener("click", generatePassword);
 
 // This inititates the above function to write password, which then in turn triggers the generate password function at the top 
-writePassword();
+writePassword();  
